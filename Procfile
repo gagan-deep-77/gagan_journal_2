@@ -1,1 +1,1 @@
-web: gunicorn forms_project.wsgi --log-file -
+web: gunicorn social_media.wsgi --log-file -
