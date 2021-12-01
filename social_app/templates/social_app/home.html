@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        #logout_btn{
+            width: 100%;
+            text-align: right;
+        }
+        #post_title{
+            display:inline-block;
+
+        }
+        #by{
+            display: inline-block;
+            margin-left: 60%;
+        }
+       
+        #add_post{
+            display: inline-block;
+        }
+        #delete{
+            color: red;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div id="logout_btn"><a href="{%url 'logout'%}">Logout</a></div>
+    {%if not not_logged_in%}
+        <div>
+            <a href="{%url 'add_post'%}" id="add_post">Add Post</a>
+        </div>
+    {%else%}
+        <div>
+            <a href="{%url 'register'%}" target="_blank" id="register">register</a>
+        </div>
+    {%endif%}
+    <h1>Home Page</h1>
+    {%for post in posts%}
+        <a href="{%url 'viewPost' id=post.id%}" id="post_title">{{post.title}}</a>
+        <div id="by"><b>by:</b> <a href="{%url 'viewUser' id=post.user.id%}">{{post.user}}</a> &nbsp; <b>date:</b>{{post.pub_date}} 
+            &nbsp;
+        {%if not not_logged_in%}
+            {%if current_user == post.user.name%}
+                <div id="delete">
+                    <a href="{%url 'deletePost' id=post.id%}">delete</a>
+                </div>
+            {%endif%}
+        {%endif%}
+        </div><br>
+        <hr>
+    {%endfor%}
+</body>
+</html>

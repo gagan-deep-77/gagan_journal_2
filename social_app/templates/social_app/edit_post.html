@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        header{
+            width: 100%;
+            text-align: center;
+            font-size: 40px;
+        }
+        textarea{
+            width: 100%;
+            height: 600px;
+            font-size: 23px;
+            font-family: arial,;
+        }
+
+        #post_title{
+            width: 100%;
+            height: 50px;
+            margin-bottom: 2%;
+            /* font-family: arial; */
+            font-size: 23px;
+        }
+        form{
+           
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Edit Post
+    </header>
+    <form action="" method="post">
+        {%csrf_token %}
+        <label for="post_title">
+            title:
+            <input type="text" name="post_title" value="{{post.title}}" id="post_title">
+        </label>
+        <label for="post_body">
+            Body:
+            <textarea name="post_body" id="textarea" cols="30" rows="10">{{post.body}}</textarea>
+
+        </label>
+
+        <input type="submit" value="Submit">
+    </form>
+<script>
+    var textarea = document.getElementById("textarea");
+    var heightLimit = 200; /* Maximum height: 200px */
+
+    textarea.oninput = function() {
+    textarea.style.height = ""; /* Reset the height*/
+    textarea.style.height = Math.min(textarea.scrollHeight, heightLimit) + "px";
+};
+</script>
+</body>
+</html>

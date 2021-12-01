@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #post_title{
+            width: 100%;
+            text-align: center;
+            font-size: 45px;
+        }
+        #container{
+            margin-top: 2%;
+            /* border: 1px solid gray; */
+        }
+        #comment_heading{
+            width:100%;
+            text-align: left;
+            font-size: 35px;
+        }
+        #comment_info{
+            display: inline-block;
+            margin-left: 60%;
+        }
+
+        textarea{
+            width: 100%;
+            height: 15px;
+        }
+
+        #form_container{
+            margin-bottom: 4%;
+        }
+        #comment_heading{
+            margin-top: 2%;
+        }
+
+        #comment{
+            /* border: 1px solid grey; */
+            margin-bottom: 1%;
+        }
+
+        #post_body{
+            font-size: 23px;
+            font-family: arial;
+            white-space: pre;
+        }
+        #container{
+            width: 100%;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div id="post_title">{{post.title}} </div>
+
+    {%if current_user == post.user.name%}
+        <div id="edit_post"><a href="{%url 'editPost' id=post.id%}">Edit</a></div>
+    {%else%}
+        <div><a href=""></a></div>
+    {%endif%}
+
+    
+    <div id="container">
+        <div id="post_body">{{post.body}}</div>
+    </div>
+    <!-- <hr> -->
+    <div id="comment_heading">
+        Comments
+    </div>
+    <div id="form_container">
+        <form action="" method="post">
+            {%csrf_token%}
+            <label for="body">
+                <!-- Comment body -->
+                <textarea name="body" id="textarea" cols="30" rows="10"></textarea>
+            </label>
+            <input type="submit" value="Comment">
+        </form>
+    </div>
+    <div id="comment_encloser">
+        {%for comment in comments%}
+            <div id="comment">{{comment.body}} &nbsp;
+                <div id="comment_info"><b>by:</b><a href="{%url 'viewUser' id=comment.user.id%}">{{comment.user.name}}</a> &nbsp;<b>{{comment.pub_date}}</b></div>
+                {%if current_user == comment.user.name%}
+                    <a href="{%url 'deleteComment' id=comment.id%}">delete</a>
+                {%endif%}
+                <br></div>
+                <hr>
+        {%endfor%}
+    </div>
+
+    <script>
+        var textarea = document.getElementById("textarea");
+var heightLimit = 200; /* Maximum height: 200px */
+
+textarea.oninput = function() {
+  textarea.style.height = ""; /* Reset the height*/
+  textarea.style.height = Math.min(textarea.scrollHeight, heightLimit) + "px";
+};
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

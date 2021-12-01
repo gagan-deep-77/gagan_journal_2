@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #heading{
+            width: 100%;
+            text-align: center;
+            font-size: 40px;
+        }
+        #user_posts{
+            margin-top: 2%;
+            
+        }
+    </style>
+</head>
+<body>
+    <div id="heading">
+        Profile
+    </div>
+
+    <div id="user_info">
+        <b>Name:</b> {{user.name}} <br>
+        <b>Email:</b> {{user.email}}
+    </div>
+    
+    <div id="user_posts">
+        <div id="post_title">
+            Posts by {{user.name}}
+        </div>
+        {%for post in posts%}
+            <a href="{%url 'viewPost' id=post.id%}">{{post.title}}</a><br>
+        {%endfor%}
+    </div>
+</body>
+</html>
