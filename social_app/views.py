@@ -5,8 +5,9 @@ from django.http import HttpResponse
 from .models import User,Post,Comment
 
 def home(request):
-    try:
-        request.session["username"]
+    if request.session["username"] or None:
+
+
         context = {
             "users":User.objects.all(),
             "posts":Post.objects.all().order_by("-pub_date"),
@@ -15,7 +16,7 @@ def home(request):
 
         }
         return render(request,"social_app/home.html",context)
-    except KeyError:
+    else:
         return redirect("register")
 
 
